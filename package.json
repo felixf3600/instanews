@@ -1,0 +1,22 @@
+{
+  "name": "gulp-demo",
+  "version": "1.0.0",
+  "description": "a demo project on gulp",
+  "main": "index.js",
+  "scripts": {
+    "start": "",
+    "mygit": "git status; git add -A; git status",
+    "test": "ls -l"
+  },
+  "author": "Felix",
+  "license": "ISC",
+  "devDependencies": {
+    "browser-sync": "^2.26.7",
+    "gulp": "^4.0.2",
+    "gulp-rename": "^2.0.0",
+    "gulp-terser": "^1.2.0"
+  },
+  "dependencies": {
+    "gulp-eslint": "^6.0.0"
+  }
+}
