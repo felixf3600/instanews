@@ -19,6 +19,10 @@
 
     // any globals we want to allow will go here
   },
+  "parserOptions": {
+    "sourceType": "module",
+    "allowImportExportEverywhere": true
+  },
   "env": {
     "es6": true,
     "browser": true,

@@ -36,7 +36,7 @@ html {
 
 .article {
   min-width: 100vw;
-  height: 500px;
+  height: 300px;
   justify-content: end;
   // align-content: flex-end;
   background-size: 100%;
@@ -44,54 +44,57 @@ html {
   border: 1px solid red;
   position: relative;
 }
-
-.article:nth-child(1) {
-  background-image: url("https://picsum.photos/seed/picsum/200/300");
+img {
+  width: 100%;
+  height: fit-content;
 }
+// .article:nth-child(1) {
+//   background-image: url("https://picsum.photos/seed/picsum/200/300");
+// }
 
-.article:nth-child(2) {
-  background-image: url("https://picsum.photos/seed/picsum/200/300");
-}
+// .article:nth-child(2) {
+//   background-image: url("https://picsum.photos/seed/picsum/200/300");
+// }
 
-.article:nth-child(3) {
-  background-image: url("https://picsum.photos/seed/picsum/200/300");
-}
+// .article:nth-child(3) {
+//   background-image: url("https://picsum.photos/seed/picsum/200/300");
+// }
 
-.article:nth-child(4) {
-  background-image: url("https://picsum.photos/seed/picsum/200/300");
-}
+// .article:nth-child(4) {
+//   background-image: url("https://picsum.photos/seed/picsum/200/300");
+// }
 
-.article:nth-child(5) {
-  background-image: url("https://picsum.photos/seed/picsum/200/300");
-}
+// .article:nth-child(5) {
+//   background-image: url("https://picsum.photos/seed/picsum/200/300");
+// }
 
-.article:nth-child(6) {
-  background-image: url("https://picsum.photos/seed/picsum/200/300");
-}
+// .article:nth-child(6) {
+//   background-image: url("https://picsum.photos/seed/picsum/200/300");
+// }
 
-.article:nth-child(7) {
-  background-image: url("https://picsum.photos/seed/picsum/200/300");
-}
+// .article:nth-child(7) {
+//   background-image: url("https://picsum.photos/seed/picsum/200/300");
+// }
 
-.article:nth-child(8) {
-  background-image: url("https://picsum.photos/seed/picsum/200/300");
-}
+// .article:nth-child(8) {
+//   background-image: url("https://picsum.photos/seed/picsum/200/300");
+// }
 
-.article:nth-child(9) {
-  background-image: url("https://picsum.photos/seed/picsum/200/300");
-}
+// .article:nth-child(9) {
+//   background-image: url("https://picsum.photos/seed/picsum/200/300");
+// }
 
-.article:nth-child(10) {
-  background-image: url("https://picsum.photos/seed/picsum/200/300");
-}
+// .article:nth-child(10) {
+//   background-image: url("https://picsum.photos/seed/picsum/200/300");
+// }
 
-.article:nth-child(11) {
-  background-image: url("https://picsum.photos/seed/picsum/200/300");
-}
+// .article:nth-child(11) {
+//   background-image: url("https://picsum.photos/seed/picsum/200/300");
+// }
 
-.article:nth-child(12) {
-  background-image: url("https://picsum.photos/seed/picsum/200/300");
-}
+// .article:nth-child(12) {
+//   background-image: url("https://picsum.photos/seed/picsum/200/300");
+// }
 
 .description {
   position: absolute;
