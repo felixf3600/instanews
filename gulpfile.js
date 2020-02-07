@@ -1,9 +1,24 @@
-const gulp = require("gulp"); // Load Gulp!
-// Now that we've installed the terser package we can require it:
-const terser = require("gulp-terser"),
-  rename = require("gulp-rename"),
-  browserSync = require("browser-Sync").create(),
-  eslint = require("gulp-eslint");
+const gulp = require("gulp"), // Load Gulp!
+  // Now that we've installed the terser package we can require it:
+  terser = require("gulp-terser"), //to uglify the code
+  rename = require("gulp-rename"), // to rename
+  browserSync = require("browser-Sync").create(), //syncs the files to the browser
+  eslint = require("gulp-eslint"), // chescks for lynt warnings and errors
+  sass = require("gulp-sass"), // sass compiler
+  autoPrefixer = require("gulp-autoprefixer"), //older version support
+  cssnano = require("gulp-cssnano"), //minify the css
+  prettyError = require("gulp-prettyerror"); // looks for errors before compiling
+
+gulp.task("sass", function() {
+  return gulp
+    .src("./sass/style.scss") // source path
+    .pipe(prettyError()) // ADD THIS LINE
+    .pipe(sass()) //runs compiler
+    .pipe(autoPrefixer({})) //support for older versions
+    .pipe(cssnano()) //minify the code
+    .pipe(rename("style.min.css")) //renames the file
+    .pipe(gulp.dest("./build/css")); //destination folder
+});
 
 gulp.task("scripts", function() {
   return gulp
@@ -31,19 +46,20 @@ gulp.task("eslint", function() {
 
 gulp.task("watch", function() {
   gulp.watch("./js/*.js", gulp.series("scripts", "reload"));
-  gulp.watch("./css/*.css", gulp.series("reload"));
+  gulp.watch("./sass/*.scss", gulp.series("sass", "reload"));
+  // gulp.watch("./css/*.css", gulp.series("reload")); not needed with the scss
   gulp.watch("./*.html", gulp.series("reload"));
-});
+}); //watches the files for changes
 
 gulp.task("browser-sync", function() {
   browserSync.init({
     server: { baseDir: "./" }
   });
-});
+}); //syncs with browser
 
 gulp.task("reload", function(done) {
   browserSync.reload();
   done();
-});
+}); // reload function
 
-gulp.task("default", gulp.parallel("scripts", "watch", "browser-sync"));
+gulp.task("default", gulp.parallel("sass", "scripts", "watch", "browser-sync"));
