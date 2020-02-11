@@ -44,7 +44,8 @@ document.addEventListener("DOMContentLoaded", function() {
       const span = document.createElement("span");
       const aTag = document.createElement("a");
       const image = document.createElement("img");
-      image.innerHTML = createImage(article);
+      createImage(image, article);
+      span.setAttribute("class", "description");
       createSpan(span, article);
       createATag(counter, aTag, span, image, article);
       articlesArea.appendChild(aTag);
@@ -53,8 +54,9 @@ document.addEventListener("DOMContentLoaded", function() {
     console.log(articlesArea);
   }
 
-  function createImage(article) {
-    return `src=${article.photo} alt=${article.caption}`;
+  function createImage(image, article) {
+    image.setAttribute("src", article.photo);
+    image.setAttribute("alt", article.caption);
   }
 
   function createSpan(span, article) {
