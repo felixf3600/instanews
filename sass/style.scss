@@ -6,6 +6,7 @@
 // sets the defaults of the body and html
 body,
 html {
+  color: $abstract-color;
   background-color: $background;
   font-family: Open "Sans Light";
   font-size: $font-size;
@@ -15,58 +16,82 @@ html {
 span {
   color: $abstract-color;
 }
+
+h1 {
+  font-size: 5rem;
+}
+
 // this is the header of the page
 .header {
-  height: 0.7 * $full-height; // sets the height of the header container
+  height: 1.2 * $full-width; // sets the height of the header container
   // positions the logo and menu
+  padding-top: 20px;
   @include direction(column);
-  @include justification(end, center);
+  @include justification(center, center);
   // position the logo and menu in tablet mode
   @include tablet {
+    height: 0.7 * $full-width; // sets the height of the header container
+
     @include direction(row);
-    @include justification(center, center);
+    @include justification(center, end);
   }
   // positions the logo and menu in desktop mode
   @include desktop {
     @include justification(start, center);
   }
-}
 
-// the pulldown menu select tag
-.menu {
-  // puts the label on top of selector
-  @include direction(column);
-  @include justification(center, center);
-  flex-wrap: wrap;
-  // height: 50px;
-  padding-bottom: 3rem;
-  font-size: 1rem;
-  // repossitions menu for tablet
-  @include tablet {
+  // the pulldown menu select tag
+  .menu {
+    // puts the label on top of selector
+    @include direction(column);
     @include justification(center, center);
-    padding-bottom: 0;
-    font-size: 1.5rem;
+    height: 100px;
+    flex-wrap: wrap;
+    // height: 50px;
+    // padding-bottom: 3rem;
+    font-size: 1rem;
+    // repossitions menu for tablet
+    @include tablet {
+      @include justification(center, center);
+      height: auto;
+      padding-bottom: 0;
+      font-size: 1.5rem;
+    }
   }
-}
 
-// logo sizing
-.logo {
-  width: $full-width;
-  height: 0.35 * $full-height;
-  background-image: url("../../assets/images/nyt-logo.svg");
-  background-repeat: no-repeat;
-  background-position: center;
-  // tablet logo sizing
-  @include tablet {
-    width: 0.3 * $full-width;
-    height: auto;
+  // logo sizing
+  .logo {
+    width: $full-width;
+    height: 0.35 * $full-height;
+    background-image: url("../../assets/images/nyt-logo.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    // tablet logo sizing
+    @include tablet {
+      width: 0.3 * $full-width;
+      height: auto;
+    }
+    // desktop logo sizing
+    @include desktop {
+      width: 0.25 * $full-width;
+    }
   }
-  // desktop logo sizing
-  @include desktop {
-    width: 0.25 * $full-width;
+
+  .shrunk {
+    width: $full-width;
+    height: 0.3 * $full-height;
+    // tablet logo sizing
+    @include tablet {
+      width: 0.15 * $full-width;
+      height: auto;
+    }
+    // desktop logo sizing
+    @include desktop {
+      width: 0.25 * $full-width;
+    }
   }
-}
-// end of the header of the page
+} // end of the header of the page
 
 .articles {
   // this is the articles section. this is where I am setting up the grid
@@ -81,61 +106,63 @@ span {
   @include desktop {
     grid-template-columns: repeat(4, 25%);
   }
+
+  .article {
+    // each article containing an image, title, byline, and abstract
+    display: flex;
+    position: relative;
+
+    img {
+      // sets up each image size
+      width: $full-width;
+      height: 0.7 * $full-width;
+      // image size for tablets
+      @include tablet {
+        width: 0.33 * $full-width;
+        height: 0.45 * $full-width;
+      }
+      //image size for desktop
+      @include desktop {
+        width: 0.25 * $full-width;
+      }
+    }
+    .description {
+      // the container containing the byline, title, and abstract
+      position: absolute;
+      @include direction(column);
+      // @include justification(space-between, space-between);
+      width: $full-width;
+      bottom: 0px;
+      background-color: rgba(0, 0, 0, 0.5);
+      // container size for tablet
+      @include tablet {
+        width: 0.33 * $full-width;
+      }
+      //container size for desktop
+      @include desktop {
+        width: 0.25 * $full-width;
+      }
+      // abstract properties
+      .abstract {
+        padding: 0 10px 0 10px;
+        order: 3;
+      }
+      // byline properties
+      .byline {
+        padding: 0 10px 0 10px;
+        font-style: italic;
+        order: 2;
+      }
+      // title properties
+      .title {
+        padding: 0 10px 0 10px;
+        font-weight: bolder;
+        order: 1;
+      }
+    }
+  }
 }
 
-.article {
-  // each article containing an image, title, byline, and abstract
-  display: flex;
-  position: relative;
-}
-
-img {
-  // sets up each image size
-  width: $full-width;
-  height: 0.7 * $full-height;
-  // image size for tablets
-  @include tablet {
-    width: 0.33 * $full-width;
-    height: 0.3 * $full-height;
-  }
-  //image size for desktop
-  @include desktop {
-    width: 0.25 * $full-width;
-  }
-}
-
-.description {
-  // the container containing the byline, title, and abstract
-  position: absolute;
-  @include direction(column);
-  @include justification(space-between, space-between);
-  width: $full-width;
-  bottom: 0px;
-  padding: 0 10px 0 10px;
-  background-color: rgba(0, 0, 0, 0.5);
-  // container size for tablet
-  @include tablet {
-    width: 0.3 * $full-width;
-  }
-  //container size for desktop
-  @include desktop {
-    width: 0.25 * $full-width;
-  }
-}
-// abstract properties
-.abstract {
-  order: 3;
-}
-// byline properties
-.byline {
-  font-style: italic;
-  order: 2;
-}
-// title properties
-.title {
-  font-weight: bolder;
-  order: 1;
-}
 // footer container
 .footer {
   display: flex;

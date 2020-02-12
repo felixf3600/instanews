@@ -6,22 +6,31 @@ document.addEventListener("DOMContentLoaded", function() {
     $.ajax({
       method: "GET",
       url: `https://api.nytimes.com/svc/topstories/v2/${btn.value}.json?api-key=5Fuweavf9NF1wpoTCAyGX4XZ7DMCtztz`
-    }).done(function(data) {
-      topStories = populate(data);
-      displayStories(topStories);
-      // .fail(function() {
-      //   masterList.append(`<li> Sorry something went wrong</li>`);
-      // });
-    });
+    })
+      .done(function(data) {
+        changeHeader();
+        // setTimeout(function(){
+
+        // });
+        topStories = populate(data);
+        displayStories(topStories);
+      })
+      .fail(function() {
+        displayError();
+      });
   });
 
-  // hover.addEventListener("onmouseover", function() {
-  //   hover.classList.toggle("expand");
-  // });
+  function changeHeader() {
+    const $newHeader = $(".logo");
+    $newHeader.addClass("shrunk");
+  }
 
-  // hover.addEventListener("onmouseout", function() {
-  //   hover.classList.toggle("expand");
-  // });
+  function displayError() {
+    const news = document.getElementById("news");
+    const error = document.createElement("h1");
+    error.innerText = "Sorry something went wrong";
+    news.append(error);
+  }
 
   // this function grabs the article info and puts it in an object
   function getArticle(counter, data) {
@@ -49,7 +58,8 @@ document.addEventListener("DOMContentLoaded", function() {
     return topArticles; // returns the array of stories for processing
   }
 
-  // uses a foreach to put the array of stories into the HTML in the form of an <a> tag with an image and span tags inside
+  // uses a foreach to put the array of stories into the HTML in the form of an <a> tag with an image and
+  //span tags inside. <a> <img> <span> <span></span> <span></span> <span</span> </span> </a>
   function displayStories(storiesArray) {
     const articlesArea = document.getElementById("news");
     // let counter = 1;
@@ -63,16 +73,15 @@ document.addEventListener("DOMContentLoaded", function() {
       createSpan(span, article);
       createATag(/*counter,*/ aTag, span, image, article);
       articlesArea.appendChild(aTag);
-      counter++;
+      // counter++;
     });
-    console.log(articlesArea);
   }
-
+  //creates the image tag adding the src and alt to it
   function createImage(image, article) {
     image.setAttribute("src", article.photo);
     image.setAttribute("alt", article.caption);
   }
-
+  //this creates the complex description span that houses the abstract span, the title span and the byline span
   function createSpan(span, article) {
     const byLineSpan = document.createElement("span");
     const titleSpan = document.createElement("span");
@@ -87,7 +96,7 @@ document.addEventListener("DOMContentLoaded", function() {
     span.appendChild(byLineSpan);
     span.appendChild(abstractSpan);
   }
-
+  // this function puts puts the a tag together
   function createATag(/*counter,*/ aTag, span, image, article) {
     aTag.setAttribute("href", article.url);
     aTag.setAttribute("class", "article");
@@ -96,3 +105,11 @@ document.addEventListener("DOMContentLoaded", function() {
     aTag.appendChild(span);
   }
 }); // end of doc
+
+// hover.addEventListener("onmouseover", function() {
+//   hover.classList.toggle("expand");
+// });
+
+// hover.addEventListener("onmouseout", function() {
+//   hover.classList.toggle("expand");
+// });
