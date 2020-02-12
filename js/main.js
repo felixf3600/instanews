@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
   const btn = document.getElementById("section-selection");
+  const hover = document.getElementsByClassName("description");
   btn.addEventListener("change", function() {
     let topStories = [];
     $.ajax({
@@ -13,17 +14,29 @@ document.addEventListener("DOMContentLoaded", function() {
       // });
     });
   });
+
+  // hover.addEventListener("onmouseover", function() {
+  //   hover.classList.toggle("expand");
+  // });
+
+  // hover.addEventListener("onmouseout", function() {
+  //   hover.classList.toggle("expand");
+  // });
+
+  // this function grabs the article info and puts it in an object
   function getArticle(counter, data) {
     const news = {
-      title: data[counter].title,
-      abstract: data[counter].abstract,
-      byLine: data[counter].byline,
-      url: data[counter].url,
-      photo: data[counter].multimedia[0].url,
-      caption: data[counter].multimedia[0].caption
+      title: data[counter].title, // grabs the title of the article
+      abstract: data[counter].abstract, // grabs the abstract of the article
+      byLine: data[counter].byline, // grabs the bylilne of the article
+      url: data[counter].url, // grabs the url of the article
+      photo: data[counter].multimedia[0].url, // grabs the url of the photo
+      caption: data[counter].multimedia[0].caption // grabs the caption of the photo
     };
-    return news;
+    return news; // returns the object
   }
+
+  // this does a foreach loop and grabs the info for each article and puts them in an array for easy access
   function populate(data) {
     const topArticles = [];
     for (
@@ -33,12 +46,13 @@ document.addEventListener("DOMContentLoaded", function() {
     ) {
       topArticles[counter] = getArticle(counter, data.results);
     }
-    return topArticles;
+    return topArticles; // returns the array of stories for processing
   }
 
+  // uses a foreach to put the array of stories into the HTML in the form of an <a> tag with an image and span tags inside
   function displayStories(storiesArray) {
     const articlesArea = document.getElementById("news");
-    let counter = 1;
+    // let counter = 1;
     articlesArea.innerHTML = " ";
     storiesArray.forEach(article => {
       const span = document.createElement("span");
@@ -47,7 +61,7 @@ document.addEventListener("DOMContentLoaded", function() {
       createImage(image, article);
       span.setAttribute("class", "description");
       createSpan(span, article);
-      createATag(counter, aTag, span, image, article);
+      createATag(/*counter,*/ aTag, span, image, article);
       articlesArea.appendChild(aTag);
       counter++;
     });
@@ -74,10 +88,10 @@ document.addEventListener("DOMContentLoaded", function() {
     span.appendChild(abstractSpan);
   }
 
-  function createATag(counter, aTag, span, image, article) {
+  function createATag(/*counter,*/ aTag, span, image, article) {
     aTag.setAttribute("href", article.url);
     aTag.setAttribute("class", "article");
-    aTag.setAttribute("id", `article${counter}`);
+    // aTag.setAttribute("id", `article${counter}`);
     aTag.appendChild(image);
     aTag.appendChild(span);
   }

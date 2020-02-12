@@ -1,55 +1,86 @@
-/* importing the partial scss files */
+// importing the reset and partial scss file
+@import "reset"; // reset scss file
+@import "variables"; // scss variables
+@import "mixings"; // mixings
 
-@import "reset"; /* reset scss file */
-
+// sets the defaults of the body and html
 body,
-html,
-span {
-  color: white;
-  background-color: black;
+html {
+  background-color: $background;
   font-family: Open "Sans Light";
+  font-size: $font-size;
+  line-height: 1rem;
 }
-
+// this sets the color of the span
 span {
-  background-color: rgba(0, 0, 0, 0.5);
+  color: $abstract-color;
 }
 // this is the header of the page
 .header {
-  // for the header,footer and each article
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-content: center;
+  height: 0.7 * $full-height; // sets the height of the header container
+  // positions the logo and menu
+  @include direction(column);
+  @include justification(end, center);
+  // position the logo and menu in tablet mode
+  @include tablet {
+    @include direction(row);
+    @include justification(center, center);
+  }
+  // positions the logo and menu in desktop mode
+  @include desktop {
+    @include justification(start, center);
+  }
 }
 
+// the pulldown menu select tag
 .menu {
-  display: flex;
-  flex-direction: column;
+  // puts the label on top of selector
+  @include direction(column);
+  @include justification(center, center);
   flex-wrap: wrap;
-  padding: 5vmin;
-  height: 50px;
-  margin: 0 0 auto;
-  justify-content: center;
-  align-content: center;
+  // height: 50px;
+  padding-bottom: 3rem;
+  font-size: 1rem;
+  // repossitions menu for tablet
+  @include tablet {
+    @include justification(center, center);
+    padding-bottom: 0;
+    font-size: 1.5rem;
+  }
 }
 
+// logo sizing
 .logo {
-  // the logo
-  width: 100%;
-  height: 35vh;
-  justify-content: center;
-  align-content: center;
+  width: $full-width;
+  height: 0.35 * $full-height;
   background-image: url("../../assets/images/nyt-logo.svg");
   background-repeat: no-repeat;
   background-position: center;
+  // tablet logo sizing
+  @include tablet {
+    width: 0.3 * $full-width;
+    height: auto;
+  }
+  // desktop logo sizing
+  @include desktop {
+    width: 0.25 * $full-width;
+  }
 }
 // end of the header of the page
 
 .articles {
   // this is the articles section. this is where I am setting up the grid
   display: grid;
-  height: 100vmin;
-  width: 100vmin;
+  width: $full-width;
+  // changes the grid to display in 3 columns for tablet
+  @include tablet {
+    grid-template-columns: repeat(3, 33%);
+    width: auto;
+  }
+  // changes the grid to display in 4 columns for desktop
+  @include desktop {
+    grid-template-columns: repeat(4, 25%);
+  }
 }
 
 .article {
@@ -59,35 +90,66 @@ span {
 }
 
 img {
-  width: 100vmin;
-  height: 100vmin;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
+  // sets up each image size
+  width: $full-width;
+  height: 0.7 * $full-height;
+  // image size for tablets
+  @include tablet {
+    width: 0.33 * $full-width;
+    height: 0.3 * $full-height;
+  }
+  //image size for desktop
+  @include desktop {
+    width: 0.25 * $full-width;
+  }
 }
 
 .description {
   // the container containing the byline, title, and abstract
   position: absolute;
-  display: flex;
-  flex-direction: column;
-  height: 20vmin;
-  width: 100vmin;
+  @include direction(column);
+  @include justification(space-between, space-between);
+  width: $full-width;
   bottom: 0px;
+  padding: 0 10px 0 10px;
   background-color: rgba(0, 0, 0, 0.5);
+  // container size for tablet
+  @include tablet {
+    width: 0.3 * $full-width;
+  }
+  //container size for desktop
+  @include desktop {
+    width: 0.25 * $full-width;
+  }
 }
-
-.byline {
-  display: none;
-  order: 2;
-}
-
+// abstract properties
 .abstract {
-  // display: none;
   order: 3;
 }
-
+// byline properties
+.byline {
+  font-style: italic;
+  order: 2;
+}
+// title properties
 .title {
-  display: none;
+  font-weight: bolder;
   order: 1;
+}
+// footer container
+.footer {
+  display: flex;
+  color: grey;
+  @include justification(center, center);
+  height: 0.1 * $full-height;
+  padding-top: 3rem;
+  // changes for tablet format
+  @include tablet {
+    font-size: 1.5rem;
+  }
+  // changes for desktop format
+  @include desktop {
+    @include justification(left, center);
+    padding-left: 3rem;
+  }
 }

@@ -1,0 +1,22 @@
+// flex display with direction
+@mixin direction($direction) {
+  display: flex;
+  flex-direction: $direction;
+}
+// justify and align content
+@mixin justification($justify, $align) {
+  justify-content: $justify;
+  align-content: $align;
+}
+// desktop media query
+@mixin desktop {
+  @media (min-width: $desktop-width) {
+    @content;
+  }
+}
+//`tablet media query
+@mixin tablet {
+  @media (min-width: $tablet-width) {
+    @content;
+  }
+}
