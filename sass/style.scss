@@ -32,33 +32,14 @@ h3 {
   line-height: 1.5rem;
 }
 
-.screen-reader-text {
-  clip: rect(1px, 1px, 1px, 1px);
-  position: absolute !important;
-  height: 1px;
-  width: 1px;
-  overflow: hidden;
-}
-.screen-reader-text:focus {
-  clip: auto !important;
-  display: block;
-  height: auto;
-  left: 5px;
-  top: 5px;
-  width: auto;
-  z-index: 100000; /* above all content */
-}
-
 // this is the header of the page
 .header {
-  // height: 1.2 * $full-width; // sets the height of the header container
   // positions the logo and menu
   padding-top: 10vh;
   @include direction(column);
   @include justification(center, center);
   // position the logo and menu in tablet mode
   @include tablet {
-    // height: 0.7 * $full-width; // sets the height of the header container
     padding-top: 0;
     @include direction(row);
     @include justification(center, flex-end);
@@ -68,15 +49,13 @@ h3 {
     @include justification(start, center);
   }
 
+  // this takes effect when the content is loading. shrings the header
   .shrunkHeader {
-    // positions the logo and menu
-
-    // position the logo and menu in tablet mode
     @include tablet {
-      height: 0.7 * $full-width; // sets the height of the header container
+      height: 0.7 * $full-width;
     }
-    // positions the logo and menu in desktop mode
     @include desktop {
+      height: 0.05 * $full-width;
     }
   }
   // the pulldown menu select tag
@@ -84,16 +63,13 @@ h3 {
     // puts the label on top of selector
     @include direction(column);
     @include justification(center, center);
-    height: 100px;
     flex-wrap: wrap;
-    // height: 50px;
-    // padding-bottom: 3rem;
-    // font-size: 1rem;
+    padding-bottom: 3rem;
+
     // repossitions menu for tablet
     @include tablet {
       @include justification(center, center);
-      height: auto;
-      padding-bottom: 0;
+      padding-bottom: 0rem;
       font-size: 1.5rem;
     }
   }
@@ -112,11 +88,11 @@ h3 {
     }
     // desktop logo sizing
     @include desktop {
-      width: 0.2 * $full-width;
-      height: 0.5 * $full-width;
+      width: 0.15 * $full-width;
+      height: 0.4 * $full-width;
     }
   }
-
+  // this is the shrunken logo used after section is selected
   .shrunkLogo {
     width: $full-width;
     height: 0.5 * $full-width;
@@ -124,12 +100,13 @@ h3 {
     @include tablet {
       width: 0.1 * $full-width;
       height: 0.2 * $full-width;
-
-      // height: auto;
     }
     // desktop logo sizing
     @include desktop {
-      width: 0.25 * $full-width;
+      margin-top: 2rem;
+      margin-bottom: 2rem;
+      width: 0.1.5 * $full-width;
+      height: 0.1 * $full-width;
     }
   }
 } // end of the header of the page
@@ -174,7 +151,6 @@ h3 {
       // the container containing the byline, title, and abstract
       position: absolute;
       @include direction(column);
-      // @include justification(space-between, space-between);
       width: $full-width;
       bottom: 0px;
       background-color: rgba(0, 0, 0, 0.5);
