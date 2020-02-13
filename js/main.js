@@ -16,19 +16,21 @@ document.addEventListener("DOMContentLoaded", function() {
         displayStories(topStories);
       })
       .fail(function() {
-        displayError();
+        displayError("Sorry something went wrong");
       });
   });
 
   function changeHeader() {
-    const $newHeader = $(".logo");
-    $newHeader.addClass("shrunk");
+    const $newLogo = $(".logo");
+    const $newHeader = $("header");
+    $newLogo.addClass("shrunkLogo");
+    $newHeader.addClass("shrunkHeader");
   }
 
-  function displayError() {
+  function displayError(message) {
     const news = document.getElementById("news");
-    const error = document.createElement("h1");
-    error.innerText = "Sorry something went wrong";
+    const error = document.createElement("h2");
+    error.innerText = message;
     news.append(error);
   }
 
@@ -48,6 +50,7 @@ document.addEventListener("DOMContentLoaded", function() {
   // this does a foreach loop and grabs the info for each article and puts them in an array for easy access
   function populate(data) {
     const topArticles = [];
+    // uses a for loop to makesure that only up to 12 articles are visible and does not crash if less than 12.
     for (
       let counter = 0;
       counter < 12 && counter < data.results.length;
@@ -65,13 +68,13 @@ document.addEventListener("DOMContentLoaded", function() {
     // let counter = 1;
     articlesArea.innerHTML = " ";
     storiesArray.forEach(article => {
-      const span = document.createElement("span");
+      const div = document.createElement("div");
       const aTag = document.createElement("a");
       const image = document.createElement("img");
       createImage(image, article);
-      span.setAttribute("class", "description");
-      createSpan(span, article);
-      createATag(/*counter,*/ aTag, span, image, article);
+      div.setAttribute("class", "description");
+      createP(div, article);
+      createATag(/*counter,*/ aTag, div, image, article);
       articlesArea.appendChild(aTag);
       // counter++;
     });
@@ -82,25 +85,24 @@ document.addEventListener("DOMContentLoaded", function() {
     image.setAttribute("alt", article.caption);
   }
   //this creates the complex description span that houses the abstract span, the title span and the byline span
-  function createSpan(span, article) {
-    const byLineSpan = document.createElement("span");
-    const titleSpan = document.createElement("span");
-    const abstractSpan = document.createElement("span");
-    byLineSpan.setAttribute("class", "byline");
-    titleSpan.setAttribute("class", "title");
-    abstractSpan.setAttribute("class", "abstract");
-    byLineSpan.innerText = article.byLine;
-    titleSpan.innerText = article.title;
-    abstractSpan.innerText = article.abstract;
-    span.appendChild(titleSpan);
-    span.appendChild(byLineSpan);
-    span.appendChild(abstractSpan);
+  function createP(span, article) {
+    const byLineP = document.createElement("p");
+    const titleP = document.createElement("h3");
+    const abstractP = document.createElement("p");
+    byLineP.setAttribute("class", "byline");
+    titleP.setAttribute("class", "title");
+    abstractP.setAttribute("class", "abstract hidden");
+    byLineP.innerText = article.byLine;
+    titleP.innerText = article.title;
+    abstractP.innerText = article.abstract;
+    span.appendChild(titleP);
+    span.appendChild(byLineP);
+    span.appendChild(abstractP);
   }
   // this function puts puts the a tag together
   function createATag(/*counter,*/ aTag, span, image, article) {
     aTag.setAttribute("href", article.url);
     aTag.setAttribute("class", "article");
-    // aTag.setAttribute("id", `article${counter}`);
     aTag.appendChild(image);
     aTag.appendChild(span);
   }

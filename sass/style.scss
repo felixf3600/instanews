@@ -4,42 +4,81 @@
 @import "mixings"; // mixings
 
 // sets the defaults of the body and html
-body,
-html {
-  color: $abstract-color;
+body {
   background-color: $background;
+  color: $abstract-color;
+}
+
+p,
+h1,
+h2,
+h3 {
+  color: $abstract-color;
   font-family: Open "Sans Light";
   font-size: $font-size;
   line-height: 1rem;
 }
 // this sets the color of the span
-span {
-  color: $abstract-color;
+h1 {
+  font-size: 3rem;
 }
 
-h1 {
-  font-size: 5rem;
+h2 {
+  font-size: 2rem;
+}
+
+h3 {
+  font-size: 1.5rem;
+  line-height: 1.5rem;
+}
+
+.screen-reader-text {
+  clip: rect(1px, 1px, 1px, 1px);
+  position: absolute !important;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+}
+.screen-reader-text:focus {
+  clip: auto !important;
+  display: block;
+  height: auto;
+  left: 5px;
+  top: 5px;
+  width: auto;
+  z-index: 100000; /* above all content */
 }
 
 // this is the header of the page
 .header {
-  height: 1.2 * $full-width; // sets the height of the header container
+  // height: 1.2 * $full-width; // sets the height of the header container
   // positions the logo and menu
-  padding-top: 20px;
+  padding-top: 10vh;
   @include direction(column);
   @include justification(center, center);
   // position the logo and menu in tablet mode
   @include tablet {
-    height: 0.7 * $full-width; // sets the height of the header container
-
+    // height: 0.7 * $full-width; // sets the height of the header container
+    padding-top: 0;
     @include direction(row);
-    @include justification(center, end);
+    @include justification(center, flex-end);
   }
   // positions the logo and menu in desktop mode
   @include desktop {
     @include justification(start, center);
   }
 
+  .shrunkHeader {
+    // positions the logo and menu
+
+    // position the logo and menu in tablet mode
+    @include tablet {
+      height: 0.7 * $full-width; // sets the height of the header container
+    }
+    // positions the logo and menu in desktop mode
+    @include desktop {
+    }
+  }
   // the pulldown menu select tag
   .menu {
     // puts the label on top of selector
@@ -49,7 +88,7 @@ h1 {
     flex-wrap: wrap;
     // height: 50px;
     // padding-bottom: 3rem;
-    font-size: 1rem;
+    // font-size: 1rem;
     // repossitions menu for tablet
     @include tablet {
       @include justification(center, center);
@@ -62,29 +101,31 @@ h1 {
   // logo sizing
   .logo {
     width: $full-width;
-    height: 0.35 * $full-height;
+    height: 0.6 * $full-width;
     background-image: url("../../assets/images/nyt-logo.svg");
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
     // tablet logo sizing
     @include tablet {
-      width: 0.3 * $full-width;
-      height: auto;
+      width: 0.25 * $full-width;
     }
     // desktop logo sizing
     @include desktop {
-      width: 0.25 * $full-width;
+      width: 0.2 * $full-width;
+      height: 0.5 * $full-width;
     }
   }
 
-  .shrunk {
+  .shrunkLogo {
     width: $full-width;
-    height: 0.3 * $full-height;
+    height: 0.5 * $full-width;
     // tablet logo sizing
     @include tablet {
-      width: 0.15 * $full-width;
-      height: auto;
+      width: 0.1 * $full-width;
+      height: 0.2 * $full-width;
+
+      // height: auto;
     }
     // desktop logo sizing
     @include desktop {
@@ -115,15 +156,18 @@ h1 {
     img {
       // sets up each image size
       width: $full-width;
-      height: 0.7 * $full-width;
+      height: $mobile-height-multiplier * $full-width;
       // image size for tablets
       @include tablet {
-        width: 0.33 * $full-width;
-        height: 0.45 * $full-width;
+        width: $tablet-width-multiplier * $full-width;
+        height: $tablet-width-multiplier * $mobile-height-multiplier *
+          $full-width;
       }
       //image size for desktop
       @include desktop {
-        width: 0.25 * $full-width;
+        width: $desktop-width-multiplier * $full-width;
+        height: $desktop-width-multiplier * $mobile-height-multiplier *
+          $full-width;
       }
     }
     .description {
@@ -166,7 +210,6 @@ h1 {
 // footer container
 .footer {
   display: flex;
-  color: grey;
   @include justification(center, center);
   height: 0.1 * $full-height;
   padding-top: 3rem;
@@ -178,5 +221,8 @@ h1 {
   @include desktop {
     @include justification(left, center);
     padding-left: 3rem;
+  }
+  p {
+    color: $copyright-color;
   }
 }
