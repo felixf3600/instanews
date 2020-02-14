@@ -78,7 +78,7 @@ h3 {
   .logo {
     width: $full-width;
     height: 0.6 * $full-width;
-    background-image: url("../../assets/images/nyt-logo.svg");
+    background-image: url($logo);
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;

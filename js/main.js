@@ -41,8 +41,8 @@ document.addEventListener("DOMContentLoaded", function() {
       abstract: data[counter].abstract, // grabs the abstract of the article
       byLine: data[counter].byline, // grabs the bylilne of the article
       url: data[counter].url, // grabs the url of the article
-      photo: data[counter].multimedia[0].url, // grabs the url of the photo
-      caption: data[counter].multimedia[0].caption // grabs the caption of the photo
+      photoSuperSize: data[counter].multimedia[0].url, // grabs the url of the photo
+      captionSuperSize: data[counter].multimedia[0].caption // grabs the caption of the photo
     };
     return news; // returns the object
   }
@@ -50,13 +50,21 @@ document.addEventListener("DOMContentLoaded", function() {
   // this does a foreach loop and grabs the info for each article and puts them in an array for easy access
   function populate(data) {
     const topArticles = [];
+    //filters the articles for articles with images only, for images with an image with an url and caption on the supersized image. the others are too small to use.
+    const articlesWithImages = data.results.filter(
+      item =>
+        item.multimedia &&
+        item.multimedia.length &&
+        item.multimedia[0].url &&
+        item.multimedia[0].caption
+    );
     // uses a for loop to makesure that only up to 12 articles are visible and does not crash if less than 12.
     for (
       let counter = 0;
-      counter < 12 && counter < data.results.length;
+      counter < 12 && counter < articlesWithImages.length;
       counter++
     ) {
-      topArticles[counter] = getArticle(counter, data.results);
+      topArticles[counter] = getArticle(counter, articlesWithImages);
     }
     return topArticles; // returns the array of stories for processing
   }
@@ -81,8 +89,8 @@ document.addEventListener("DOMContentLoaded", function() {
   }
   //creates the image tag adding the src and alt to it
   function createImage(image, article) {
-    image.setAttribute("src", article.photo);
-    image.setAttribute("alt", article.caption);
+    image.setAttribute("src", article.photoSuperSize);
+    image.setAttribute("alt", article.captionSuperSize);
   }
   //this creates the complex description span that houses the abstract span, the title span and the byline span
   function createP(span, article) {

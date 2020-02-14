@@ -7,7 +7,26 @@ const gulp = require("gulp"), // Load Gulp!
   sass = require("gulp-sass"), // sass compiler
   autoPrefixer = require("gulp-autoprefixer"), //older version support
   cssnano = require("gulp-cssnano"), //minify the css
-  prettyError = require("gulp-prettyerror"); // looks for errors before compiling
+  prettyError = require("gulp-prettyerror"), // looks for errors before compiling
+  imagemin = require("gulp-imagemin"); //compresses images
+
+gulp.task("image", function() {
+  return gulp
+    .src("./assets/images/*")
+    .pipe(
+      imagemin({
+        interlaced: true,
+        progressive: true,
+        optimizationLevel: 5,
+        svgoPlugins: [
+          {
+            removeViewBox: true
+          }
+        ]
+      })
+    )
+    .pipe(gulp.dest("./build/images"));
+});
 
 gulp.task("sass", function() {
   return gulp
@@ -49,6 +68,7 @@ gulp.task("watch", function() {
   gulp.watch("./sass/*.scss", gulp.series("sass", "reload"));
   // gulp.watch("./css/*.css", gulp.series("reload")); not needed with the scss
   gulp.watch("./*.html", gulp.series("reload"));
+  gulp.watch("./assets/images/*", gulp.series("reload"));
 }); //watches the files for changes
 
 gulp.task("browser-sync", function() {
@@ -62,4 +82,7 @@ gulp.task("reload", function(done) {
   done();
 }); // reload function
 
-gulp.task("default", gulp.parallel("sass", "scripts", "watch", "browser-sync"));
+gulp.task(
+  "default",
+  gulp.parallel("sass", "image", "scripts", "watch", "browser-sync")
+);
