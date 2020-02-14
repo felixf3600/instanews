@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", function() {
   const btn = document.getElementById("section-selection");
   const hover = document.getElementsByClassName("description");
+
   btn.addEventListener("change", function() {
     let topStories = [];
     $.ajax({
@@ -9,20 +10,35 @@ document.addEventListener("DOMContentLoaded", function() {
     })
       .done(function(data) {
         changeHeader();
-        // setTimeout(function(){
-
-        // });
         topStories = populate(data);
-        displayStories(topStories);
+        if (topStories.length > 0) {
+          displayStories(topStories);
+          displayImages();
+        } else {
+          displayError("No article to dispay. Please select another topic.");
+        }
       })
       .fail(function() {
         displayError("Sorry something went wrong");
       });
   });
 
+  function displayImages() {
+    const images = document.getElementsByClassName("image");
+    const loaders = document.getElementsByClassName("loader");
+
+    for (let counter = 0; counter < images.length; counter++) {
+      images[counter].addEventListener("load", function() {
+        images[counter].classList.toggle("animated");
+        loaders[counter].classList.toggle("animated");
+      });
+    }
+  }
+
   function changeHeader() {
     const $newLogo = $(".logo");
     const $newHeader = $("header");
+
     $newLogo.addClass("shrunkLogo");
     $newHeader.addClass("shrunkHeader");
   }
@@ -30,6 +46,8 @@ document.addEventListener("DOMContentLoaded", function() {
   function displayError(message) {
     const news = document.getElementById("news");
     const error = document.createElement("h2");
+
+    news.innerHTML = " ";
     error.innerText = message;
     news.append(error);
   }
@@ -59,6 +77,7 @@ document.addEventListener("DOMContentLoaded", function() {
         item.multimedia[0].caption
     );
     // uses a for loop to makesure that only up to 12 articles are visible and does not crash if less than 12.
+
     for (
       let counter = 0;
       counter < 12 && counter < articlesWithImages.length;
@@ -74,29 +93,44 @@ document.addEventListener("DOMContentLoaded", function() {
   function displayStories(storiesArray) {
     const articlesArea = document.getElementById("news");
     // let counter = 1;
+
     articlesArea.innerHTML = " ";
     storiesArray.forEach(article => {
       const div = document.createElement("div");
       const aTag = document.createElement("a");
       const image = document.createElement("img");
-      createImage(image, article);
+      const loaderGif = document.createElement("img");
+
+      createImage(
+        image,
+        article.photoSuperSize,
+        article.captionSuperSize,
+        "image animated"
+      );
+      createImage(
+        loaderGif,
+        "../../assets/images/ajax-loader.gif",
+        "loader gif ",
+        "loader"
+      );
       div.setAttribute("class", "description");
       createP(div, article);
-      createATag(/*counter,*/ aTag, div, image, article);
+      createATag(aTag, div, image, loaderGif, article);
       articlesArea.appendChild(aTag);
-      // counter++;
     });
   }
   //creates the image tag adding the src and alt to it
-  function createImage(image, article) {
-    image.setAttribute("src", article.photoSuperSize);
-    image.setAttribute("alt", article.captionSuperSize);
+  function createImage(image, photo, caption, ImageClass) {
+    image.setAttribute("src", photo);
+    image.setAttribute("alt", caption);
+    image.setAttribute("class", ImageClass);
   }
   //this creates the complex description span that houses the abstract span, the title span and the byline span
   function createP(span, article) {
     const byLineP = document.createElement("p");
     const titleP = document.createElement("h3");
     const abstractP = document.createElement("p");
+
     byLineP.setAttribute("class", "byline");
     titleP.setAttribute("class", "title");
     abstractP.setAttribute("class", "abstract hidden");
@@ -108,18 +142,11 @@ document.addEventListener("DOMContentLoaded", function() {
     span.appendChild(abstractP);
   }
   // this function puts puts the a tag together
-  function createATag(/*counter,*/ aTag, span, image, article) {
+  function createATag(aTag, span, image, loaderGif, article) {
     aTag.setAttribute("href", article.url);
     aTag.setAttribute("class", "article");
     aTag.appendChild(image);
+    aTag.appendChild(loaderGif);
     aTag.appendChild(span);
   }
 }); // end of doc
-
-// hover.addEventListener("onmouseover", function() {
-//   hover.classList.toggle("expand");
-// });
-
-// hover.addEventListener("onmouseout", function() {
-//   hover.classList.toggle("expand");
-// });

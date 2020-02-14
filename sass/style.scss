@@ -58,62 +58,63 @@ h3 {
       height: 0.05 * $full-width;
     }
   }
-  // the pulldown menu select tag
-  .menu {
-    // puts the label on top of selector
-    @include direction(column);
-    @include justification(center, center);
-    flex-wrap: wrap;
-    padding-bottom: 3rem;
-
-    // repossitions menu for tablet
-    @include tablet {
-      @include justification(center, center);
-      padding-bottom: 0rem;
-      font-size: 1.5rem;
-    }
-  }
-
-  // logo sizing
-  .logo {
-    width: $full-width;
-    height: 0.6 * $full-width;
-    background-image: url($logo);
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
-    // tablet logo sizing
-    @include tablet {
-      width: 0.25 * $full-width;
-    }
-    // desktop logo sizing
-    @include desktop {
-      width: 0.15 * $full-width;
-      height: 0.4 * $full-width;
-    }
-  }
-  // this is the shrunken logo used after section is selected
-  .shrunkLogo {
-    width: $full-width;
-    height: 0.5 * $full-width;
-    // tablet logo sizing
-    @include tablet {
-      width: 0.1 * $full-width;
-      height: 0.2 * $full-width;
-    }
-    // desktop logo sizing
-    @include desktop {
-      margin-top: 2rem;
-      margin-bottom: 2rem;
-      width: 0.1.5 * $full-width;
-      height: 0.1 * $full-width;
-    }
-  }
 } // end of the header of the page
+// the pulldown menu select tag
+.menu {
+  // puts the label on top of selector
+  @include direction(column);
+  @include justification(center, center);
+  flex-wrap: wrap;
+  padding-bottom: 3rem;
+
+  // repossitions menu for tablet
+  @include tablet {
+    @include justification(center, center);
+    padding-bottom: 0rem;
+    font-size: 1.5rem;
+  }
+}
+
+// logo sizing
+.logo {
+  width: $full-width;
+  height: 0.6 * $full-width;
+  background-image: url($logo);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  // tablet logo sizing
+  @include tablet {
+    width: 0.25 * $full-width;
+  }
+  // desktop logo sizing
+  @include desktop {
+    width: 0.15 * $full-width;
+    height: 0.4 * $full-width;
+  }
+}
+// this is the shrunken logo used after section is selected
+.shrunkLogo {
+  width: $full-width;
+  height: 0.5 * $full-width;
+  // tablet logo sizing
+  @include tablet {
+    width: 0.1 * $full-width;
+    height: 0.2 * $full-width;
+  }
+  // desktop logo sizing
+  @include desktop {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    width: 0.1.5 * $full-width;
+    height: 0.1 * $full-width;
+  }
+}
 
 .articles {
   // this is the articles section. this is where I am setting up the grid
   display: grid;
+  grid-gap: 1rem;
   width: $full-width;
   // changes the grid to display in 3 columns for tablet
   @include tablet {
@@ -124,63 +125,82 @@ h3 {
   @include desktop {
     grid-template-columns: repeat(4, 25%);
   }
+}
 
-  .article {
-    // each article containing an image, title, byline, and abstract
-    display: flex;
-    position: relative;
+.article {
+  // each article containing an image, title, byline, and abstract
+  display: flex;
+  position: relative;
+}
 
-    img {
-      // sets up each image size
-      width: $full-width;
-      height: $mobile-height-multiplier * $full-width;
-      // image size for tablets
-      @include tablet {
-        width: $tablet-width-multiplier * $full-width;
-        height: $tablet-width-multiplier * $mobile-height-multiplier *
-          $full-width;
-      }
-      //image size for desktop
-      @include desktop {
-        width: $desktop-width-multiplier * $full-width;
-        height: $desktop-width-multiplier * $mobile-height-multiplier *
-          $full-width;
-      }
-    }
-    .description {
-      // the container containing the byline, title, and abstract
-      position: absolute;
-      @include direction(column);
-      width: $full-width;
-      bottom: 0px;
-      background-color: rgba(0, 0, 0, 0.5);
-      // container size for tablet
-      @include tablet {
-        width: 0.33 * $full-width;
-      }
-      //container size for desktop
-      @include desktop {
-        width: 0.25 * $full-width;
-      }
-      // abstract properties
-      .abstract {
-        padding: 0 10px 0 10px;
-        order: 3;
-      }
-      // byline properties
-      .byline {
-        padding: 0 10px 0 10px;
-        font-style: italic;
-        order: 2;
-      }
-      // title properties
-      .title {
-        padding: 0 10px 0 10px;
-        font-weight: bolder;
-        order: 1;
-      }
+.description {
+  // the container containing the byline, title, and abstract
+  position: absolute;
+  @include direction(column);
+  width: $full-width;
+  bottom: 0px;
+  background-color: rgba(0, 0, 0, 0.5);
+  // container size for tablet
+  @include tablet {
+    width: 0.33 * $full-width;
+  }
+  //container size for desktop
+  @include desktop {
+    width: 0.25 * $full-width;
+  }
+  &:hover {
+    .abstract {
+      display: block;
     }
   }
+}
+
+img {
+  // sets up each image size
+  width: $full-width;
+  height: $mobile-height-multiplier * $full-width;
+  transition: opacity;
+  opacity: 1;
+
+  // image size for tablets
+  @include tablet {
+    width: $tablet-width-multiplier * $full-width;
+    height: $tablet-width-multiplier * $mobile-height-multiplier * $full-width;
+  }
+  //image size for desktop
+  @include desktop {
+    width: $desktop-width-multiplier * $full-width;
+    height: $desktop-width-multiplier * $mobile-height-multiplier * $full-width;
+  }
+}
+
+.loader {
+  display: flex;
+  position: absolute;
+}
+
+.animated {
+  opacity: 0;
+}
+
+// abstract properties
+.abstract {
+  padding: 0 10px 0 10px;
+  order: 3;
+  display: none;
+}
+
+// byline properties
+.byline {
+  padding: 0 10px 0 10px;
+  font-style: italic;
+  order: 2;
+}
+// title properties
+.title {
+  padding: 0 10px 0 10px;
+  font-weight: bolder;
+  order: 1;
 }
 
 // footer container
