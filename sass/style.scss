@@ -144,6 +144,7 @@ h3 {
   @include tablet {
     width: 0.33 * $full-width;
   }
+
   //container size for desktop
   @include desktop {
     width: 0.25 * $full-width;
@@ -161,6 +162,7 @@ img {
   height: $mobile-height-multiplier * $full-width;
   transition: opacity;
   opacity: 1;
+  object-fit: cover;
 
   // image size for tablets
   @include tablet {
@@ -187,7 +189,10 @@ img {
 .abstract {
   padding: 0 10px 0 10px;
   order: 3;
-  display: none;
+  // displays abstract if not mobile or tablet
+  @include mouse {
+    display: none;
+  }
 }
 
 // byline properties
