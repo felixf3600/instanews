@@ -85,7 +85,7 @@ I have used all my measurements to measure agaisnt the width of the media thus k
 
 I have also used object fit to keep the aspect ratio of the photos the same.
 
-### grip gap
+### grid gap
 
 added grip gap to each photo go give it a more professional look
 

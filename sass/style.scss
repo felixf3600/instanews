@@ -161,6 +161,7 @@ h3 {
     }
   }
 }
+
 img {
   // sets up each image size
   width: $full-width;
@@ -181,11 +182,13 @@ img {
   }
 }
 
+//class for the loader gif
 .loader {
   display: flex;
   position: absolute;
 }
 
+// class that sets my containers "invisible"
 .invisible {
   opacity: 0;
 }

@@ -22,6 +22,7 @@ document.addEventListener("DOMContentLoaded", function() {
       });
   });
 
+  // this function will add and event listener to toggle the invisible class once the article images are loaded. this will change the opacity of the loader gif to 0, making it invisible and the article image, the title, byline, and abstract to 1 making them visible.
   function displayImages() {
     const images = document.getElementsByClassName("image");
     const loaders = document.getElementsByClassName("loader");
@@ -39,7 +40,7 @@ document.addEventListener("DOMContentLoaded", function() {
       });
     }
   }
-
+  // resizing the logo and header
   function changeHeader() {
     const $newLogo = $(".logo");
     const $newHeader = $("header");
@@ -47,7 +48,7 @@ document.addEventListener("DOMContentLoaded", function() {
     $newLogo.addClass("shrunkLogo");
     $newHeader.addClass("shrunkHeader");
   }
-
+  // used to display any error.
   function displayError(message) {
     const news = document.getElementById("news");
     const error = document.createElement("h2");
