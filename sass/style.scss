@@ -2,8 +2,8 @@
 @import "reset"; // reset scss file
 @import "variables"; // scss variables
 @import "mixings"; // mixings
+@import "fonts"; // sets the defaults of the body and html
 
-// sets the defaults of the body and html
 body {
   background-color: $background;
   color: $abstract-color;
@@ -14,7 +14,7 @@ h1,
 h2,
 h3 {
   color: $abstract-color;
-  font-family: Open "Sans Light";
+  font-family: openSans, sans-serif;
   font-size: $font-size;
   line-height: 1rem;
 }
@@ -35,6 +35,7 @@ h3 {
 // this is the header of the page
 .header {
   // positions the logo and menu
+
   padding-top: 10vh;
   @include direction(column);
   @include justification(center, center);
@@ -131,6 +132,11 @@ h3 {
   // each article containing an image, title, byline, and abstract
   display: flex;
   position: relative;
+  &:focus {
+    .abstract {
+      display: block;
+    }
+  }
 }
 
 .description {
@@ -155,7 +161,6 @@ h3 {
     }
   }
 }
-
 img {
   // sets up each image size
   width: $full-width;
@@ -181,7 +186,7 @@ img {
   position: absolute;
 }
 
-.animated {
+.invisible {
   opacity: 0;
 }
 
@@ -204,7 +209,7 @@ img {
 // title properties
 .title {
   padding: 0 10px 0 10px;
-  font-weight: bolder;
+  font-weight: bold;
   order: 1;
 }
 

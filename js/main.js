@@ -1,6 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
   const btn = document.getElementById("section-selection");
-  const hover = document.getElementsByClassName("description");
 
   btn.addEventListener("change", function() {
     let topStories = [];
@@ -26,11 +25,17 @@ document.addEventListener("DOMContentLoaded", function() {
   function displayImages() {
     const images = document.getElementsByClassName("image");
     const loaders = document.getElementsByClassName("loader");
+    const title = document.getElementsByClassName("title");
+    const byLine = document.getElementsByClassName("byline");
+    const abstract = document.getElementsByClassName("abstract");
 
     for (let counter = 0; counter < images.length; counter++) {
       images[counter].addEventListener("load", function() {
-        images[counter].classList.toggle("animated");
-        loaders[counter].classList.toggle("animated");
+        images[counter].classList.toggle("invisible");
+        loaders[counter].classList.toggle("invisible");
+        title[counter].classList.toggle("invisible");
+        byLine[counter].classList.toggle("invisible");
+        abstract[counter].classList.toggle("invisible");
       });
     }
   }
@@ -105,7 +110,7 @@ document.addEventListener("DOMContentLoaded", function() {
         image,
         article.photoSuperSize,
         article.captionSuperSize,
-        "image animated"
+        "image invisible"
       );
       createImage(
         loaderGif,
@@ -131,9 +136,9 @@ document.addEventListener("DOMContentLoaded", function() {
     const titleP = document.createElement("h3");
     const abstractP = document.createElement("p");
 
-    byLineP.setAttribute("class", "byline");
-    titleP.setAttribute("class", "title");
-    abstractP.setAttribute("class", "abstract hidden");
+    byLineP.setAttribute("class", "byline invisible");
+    titleP.setAttribute("class", "title invisible");
+    abstractP.setAttribute("class", "abstract hidden invisible");
     byLineP.innerText = article.byLine;
     titleP.innerText = article.title;
     abstractP.innerText = article.abstract;
