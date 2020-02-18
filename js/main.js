@@ -115,7 +115,7 @@ document.addEventListener("DOMContentLoaded", function() {
       );
       createImage(
         loaderGif,
-        "../../assets/images/ajax-loader.gif",
+        "./build/images/ajax-loader.gif",
         "loader gif ",
         "loader"
       );
