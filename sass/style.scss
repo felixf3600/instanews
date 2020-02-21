@@ -106,14 +106,15 @@ h3 {
   // tablet logo sizing
   @include tablet {
     width: 0.1 * $full-width;
-    height: 0.2 * $full-width;
+    height: 0.07 * $full-width;
+    margin: 2rem 0;
   }
   // desktop logo sizing
   @include desktop {
     margin-top: 2rem;
     margin-bottom: 2rem;
     width: 0.1.5 * $full-width;
-    height: 0.1 * $full-width;
+    height: 0.05 * $full-width;
   }
 }
 
