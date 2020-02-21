@@ -8,13 +8,18 @@ body {
   background-color: $background;
   color: $abstract-color;
 }
-
+.body-container {
+  height: 100vh;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
 p,
 h1,
 h2,
 h3 {
   color: $abstract-color;
-  font-family: open_sanslight, Arial, Helvetica, sans-serif;
+  font-family: "open_sanslight", Arial, Helvetica, sans-serif;
   font-size: $font-size;
   line-height: 1rem;
 }
@@ -220,8 +225,8 @@ img {
 .footer {
   display: flex;
   @include justification(center, center);
-  height: 0.1 * $full-height;
-  padding-top: 3rem;
+  margin-top: 2rem;
+  padding: 1rem;
   // changes for tablet format
   @include tablet {
     font-size: 1.5rem;
